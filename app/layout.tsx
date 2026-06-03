@@ -16,6 +16,15 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "FitFlow - Train Smarter",
   description: "Plan your workouts, track your runs, and get personalized AI coaching",
+  icons: {
+    icon: [
+      { url: '/icon.png' },
+      { url: '/favicon.ico' }
+    ],
+    apple: '/apple-icon.png',
+    shortcut: '/favicon.ico',
+  },
+  manifest: '/site.webmanifest',
 };
 
 export default function RootLayout({
