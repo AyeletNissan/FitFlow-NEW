@@ -3,6 +3,7 @@ import { auth } from "@/auth";
 import { signIn, signOut } from "@/auth";
 import ThemeToggle from "./theme-toggle";
 import UserAvatar from "./user-avatar";
+import MobileHamburger from "./mobile-hamburger";
 
 export default async function Navbar() {
   const session = await auth();
@@ -10,8 +11,8 @@ export default async function Navbar() {
   return (
     <nav style={{ borderBottom: "2px solid var(--theme-border-light)", backgroundColor: "var(--theme-bg-card)", backdropFilter: "blur(4px)" }}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between flex-wrap">
-          <div className="flex items-center gap-6">
+        <div className="flex h-16 items-center justify-between">
+          <div className="flex items-center gap-4 min-w-0">
             <Link href="/" className="text-lg sm:text-xl font-bold" style={{ background: `linear-gradient(to right, var(--theme-primary), var(--theme-primary-hover))`, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>
               FitFlow
             </Link>
@@ -34,8 +35,12 @@ export default async function Navbar() {
               </div>
             )}
           </div>
-          <div className="flex flex-wrap items-center gap-3 sm:gap-4">
-            <ThemeToggle />
+          <div className="flex items-center gap-3 sm:gap-4">
+            <div className="flex items-center gap-2">
+              <ThemeToggle />
+              {/* Mobile hamburger placed here so toggle + avatar + hamburger fit one row */}
+              <MobileHamburger />
+            </div>
             {session ? (
               <div className="flex items-center gap-4">
                 <UserAvatar

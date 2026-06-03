@@ -44,7 +44,7 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className="rounded-xl border-2 px-4 py-2 text-sm font-semibold transition-all"
+      className="rounded-xl border-2 px-4 py-2 text-sm font-semibold transition-all flex items-center justify-center"
       style={{
         borderColor: "var(--theme-border-light)",
         backgroundColor: "var(--theme-bg-card)",
@@ -61,7 +61,9 @@ export default function ThemeToggle() {
       }}
       title={theme === "wellness" ? "Switch to Sport Mode" : "Switch to Wellness Mode"}
     >
-      {theme === "wellness" ? "🏃 Sport Mode" : "🌸 Wellness Mode"}
+      {/* Emoji-only on small screens, full label on md+ */}
+      <span className="md:hidden">{theme === "wellness" ? "🏃" : "🌸"}</span>
+      <span className="hidden md:inline">{theme === "wellness" ? "🏃 Sport Mode" : "🌸 Wellness Mode"}</span>
     </button>
   );
 }
