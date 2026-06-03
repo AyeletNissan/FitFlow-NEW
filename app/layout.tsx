@@ -18,7 +18,8 @@ export const metadata: Metadata = {
   description: "Plan your workouts, track your runs, and get personalized AI coaching",
   icons: {
     icon: [
-      { url: '/icon.png' },
+      { url: '/icon-192.png', sizes: '192x192' },
+      { url: '/icon-512.png', sizes: '512x512' },
       { url: '/favicon.ico' }
     ],
     apple: '/apple-icon.png',
