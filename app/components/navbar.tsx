@@ -10,9 +10,9 @@ export default async function Navbar() {
   return (
     <nav style={{ borderBottom: "2px solid var(--theme-border-light)", backgroundColor: "var(--theme-bg-card)", backdropFilter: "blur(4px)" }}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between">
-          <div className="flex items-center gap-10">
-            <Link href="/" className="text-xl font-bold" style={{ background: `linear-gradient(to right, var(--theme-primary), var(--theme-primary-hover))`, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>
+        <div className="flex h-16 items-center justify-between flex-wrap">
+          <div className="flex items-center gap-6">
+            <Link href="/" className="text-lg sm:text-xl font-bold" style={{ background: `linear-gradient(to right, var(--theme-primary), var(--theme-primary-hover))`, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>
               FitFlow
             </Link>
             {session && (
@@ -34,7 +34,7 @@ export default async function Navbar() {
               </div>
             )}
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex flex-wrap items-center gap-3 sm:gap-4">
             <ThemeToggle />
             {session ? (
               <div className="flex items-center gap-4">
@@ -42,7 +42,7 @@ export default async function Navbar() {
                   imageUrl={session.user?.image}
                   userName={session.user?.name}
                 />
-                <span className="text-sm font-medium" style={{ color: "var(--theme-text)" }}>
+                <span className="hidden sm:inline-block text-sm font-medium" style={{ color: "var(--theme-text)" }}>
                   {session.user?.name}
                 </span>
                 <form
@@ -53,7 +53,7 @@ export default async function Navbar() {
                 >
                   <button
                     type="submit"
-                    className="rounded-xl border-2 px-4 py-2 text-sm font-medium transition-all hover:[background-color:var(--theme-bg-hover)]"
+                    className="rounded-xl border-2 px-3 py-1.5 sm:px-4 sm:py-2 text-sm font-medium transition-all hover:[background-color:var(--theme-bg-hover)]"
                     style={{
                       borderColor: "var(--theme-border-light)",
                       color: "var(--theme-primary)",
@@ -73,7 +73,7 @@ export default async function Navbar() {
               >
                 <button
                   type="submit"
-                  className="rounded-xl px-5 py-2.5 text-sm font-semibold text-white transition-all hover:[background-color:var(--theme-primary-hover)] hover:shadow-lg"
+                  className="rounded-xl w-full sm:w-auto px-3 py-2 sm:px-5 sm:py-2.5 text-sm font-semibold text-white transition-all hover:[background-color:var(--theme-primary-hover)] hover:shadow-lg"
                   style={{
                     backgroundColor: "var(--theme-primary)",
                     boxShadow: "0 4px 6px -1px var(--theme-shadow-strong)",

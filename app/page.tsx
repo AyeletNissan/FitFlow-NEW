@@ -5,9 +5,9 @@ import Link from "next/link";
 export default function Home() {
   return (
     <div className="flex flex-col flex-1">
-      <section className="flex flex-1 items-center justify-center px-4 py-16">
-        <div className="mx-auto max-w-4xl text-center">
-          <h1 className="text-5xl font-bold tracking-tight sm:text-6xl" style={{ color: "var(--theme-text)" }}>
+      <section className="flex flex-1 items-center justify-center px-4 py-12 sm:py-16">
+        <div className="mx-auto w-full max-w-4xl text-center">
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight" style={{ color: "var(--theme-text)" }}>
             Train Smarter with{" "}
             <span
               className="text-transparent bg-clip-text"
@@ -20,14 +20,14 @@ export default function Home() {
               FitFlow
             </span>
           </h1>
-          <p className="mt-6 text-lg leading-8" style={{ color: "var(--theme-text-muted)" }}>
+          <p className="mt-4 sm:mt-6 text-base sm:text-lg leading-7 sm:leading-8" style={{ color: "var(--theme-text-muted)" }}>
             Plan your workouts, track your runs, and get personalized coaching powered by AI.
             Everything you need to reach your fitness goals.
           </p>
-          <div className="mt-10 flex items-center justify-center gap-4">
+          <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
             <Link
               href="/dashboard"
-              className="rounded-xl px-6 py-3 text-sm font-semibold text-white transition-all"
+              className="rounded-xl px-6 py-3 text-sm font-semibold text-white transition-all w-full sm:w-auto"
               style={{
                 backgroundColor: "var(--theme-primary)",
                 boxShadow: "0 4px 6px -1px var(--theme-shadow-strong)",
@@ -45,7 +45,7 @@ export default function Home() {
             </Link>
             <Link
               href="/run-coach"
-              className="rounded-xl border-2 px-6 py-3 text-sm font-semibold transition-all"
+              className="rounded-xl border-2 px-6 py-3 text-sm font-semibold transition-all w-full sm:w-auto"
               style={{
                 borderColor: "var(--theme-border)",
                 backgroundColor: "var(--theme-bg-card)",
@@ -65,7 +65,7 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-3">
+          <div className="mt-12 sm:mt-16 grid grid-cols-1 gap-6 sm:grid-cols-3">
             <div
               className="rounded-2xl border-2 p-8 transition-all"
               style={{
