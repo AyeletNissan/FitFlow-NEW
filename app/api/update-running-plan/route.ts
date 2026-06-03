@@ -7,6 +7,34 @@ const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
 });
 
+// Local types for this route to avoid importing Prisma model types
+type ExistingPlanRun = {
+  weekNumber: number;
+  weekTheme: string;
+  date: Date;
+  day: string;
+  title: string;
+  workoutType: string;
+  details: string;
+  durationMinutes?: number | null;
+  distanceKm?: number | null;
+  googleEventId?: string | null;
+};
+
+type WeeksMapValue = {
+  weekNumber: number;
+  theme: string;
+  runs: Array<{
+    date: string;
+    day: string;
+    title: string;
+    workoutType: string;
+    details: string;
+    durationMinutes?: number;
+    distanceKm?: number;
+  }>;
+};
+
 interface RunSchema {
   date: string;
   day: string;
@@ -72,12 +100,12 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if any runs have googleEventId
-    const hadSyncedRuns = existingPlan.runs.some((run) => run.googleEventId !== null);
+    const hadSyncedRuns = existingPlan.runs.some((run: ExistingPlanRun) => run.googleEventId !== null);
 
     // Format existing plan for Claude
-    const weeks = new Map<number, { weekNumber: number; theme: string; runs: any[] }>();
+    const weeks = new Map<number, WeeksMapValue>();
 
-    existingPlan.runs.forEach((run) => {
+    existingPlan.runs.forEach((run: ExistingPlanRun) => {
       if (!weeks.has(run.weekNumber)) {
         weeks.set(run.weekNumber, {
           weekNumber: run.weekNumber,
