@@ -37,9 +37,14 @@ export default async function Navbar() {
           </div>
           <div className="flex items-center gap-3 sm:gap-4">
             <div className="flex items-center gap-2">
-              <ThemeToggle />
+              {/* On mobile we want hamburger before theme toggle; swap using order classes */}
+              <div className="order-1 md:order-2">
+                <MobileHamburger />
+              </div>
+              <div className="order-2 md:order-1">
+                <ThemeToggle />
+              </div>
               {/* Mobile hamburger placed here so toggle + avatar + hamburger fit one row */}
-              <MobileHamburger />
             </div>
             {session ? (
               <div className="flex items-center gap-4">
@@ -56,16 +61,20 @@ export default async function Navbar() {
                     await signOut();
                   }}
                 >
+                  {/* Mobile: compact icon-only button. Desktop: full text stays visible. */}
                   <button
                     type="submit"
-                    className="rounded-xl border-2 px-3 py-1.5 sm:px-4 sm:py-2 text-sm font-medium transition-all hover:[background-color:var(--theme-bg-hover)]"
+                    aria-label="Sign Out"
+                    title="Sign Out"
+                    className="rounded-xl border-2 px-3 py-1.5 sm:px-4 sm:py-2 text-sm font-medium transition-all flex items-center justify-center"
                     style={{
                       borderColor: "var(--theme-border-light)",
                       color: "var(--theme-primary)",
                       backgroundColor: "var(--theme-bg-card)",
                     }}
                   >
-                    Sign Out
+                    <span className="md:hidden">↪</span>
+                    <span className="hidden md:inline">Sign Out</span>
                   </button>
                 </form>
               </div>
