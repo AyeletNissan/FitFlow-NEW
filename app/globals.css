@@ -1,8 +1,37 @@
 @import "tailwindcss";
 
+/* Soft Pink Wellness Theme (Default) */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --theme-bg-page: #f7ede2;
+  --theme-bg-card: #ffffff;
+  --theme-bg-card-alt: #ffe5ec;
+  --theme-bg-hover: #ffe5ec;
+  --theme-primary: #fb6f92;
+  --theme-primary-hover: #ff8fab;
+  --theme-border: #ffb3c6;
+  --theme-border-light: #ffc2d1;
+  --theme-border-strong: #ff8fab;
+  --theme-text: #18181b;
+  --theme-text-muted: #71717a;
+  --theme-shadow: rgba(255, 179, 198, 0.2);
+  --theme-shadow-strong: rgba(251, 111, 146, 0.3);
+}
+
+/* Dark Sport Theme */
+:root[data-theme="sport"] {
+  --theme-bg-page: #0f172a;
+  --theme-bg-card: #1e293b;
+  --theme-bg-card-alt: #1e3a52;
+  --theme-bg-hover: #334155;
+  --theme-primary: #38bdf8;
+  --theme-primary-hover: #0ea5e9;
+  --theme-border: #475569;
+  --theme-border-light: #334155;
+  --theme-border-strong: #38bdf8;
+  --theme-text: #f8fafc;
+  --theme-text-muted: #cbd5e1;
+  --theme-shadow: rgba(56, 189, 248, 0.15);
+  --theme-shadow-strong: rgba(56, 189, 248, 0.25);
 }
 
 @theme inline {
@@ -12,15 +41,6 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
-  background: var(--background);
-  color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
