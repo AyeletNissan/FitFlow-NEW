@@ -1,7 +1,45 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { prisma } from "@/app/lib/prisma";
-import type { Workout, RunningPlanRun, RunningPlan } from "@prisma/client";
+
+// Local types used only in this route to avoid importing Prisma model types
+type DashboardWorkout = {
+  id: string;
+  title: string;
+  type: string;
+  date: Date;
+  startTime: Date;
+  endTime: Date;
+  location: string | null;
+  notes: string | null;
+  googleEventId: string | null;
+  userId: string;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+type DashboardPlanRun = {
+  id: string;
+  runningPlanId: string;
+  weekNumber: number;
+  weekTheme: string;
+  date: Date;
+  title: string;
+  workoutType: string;
+  details: string;
+  durationMinutes: number | null;
+  distanceKm: number | null;
+  googleEventId: string | null;
+  createdAt: Date;
+  updatedAt: Date;
+  runningPlan: {
+    id: string;
+    name: string;
+    goal: string;
+    durationWeeks: number;
+  };
+  userId?: string; // not used for plan runs in this route but present on some objects
+};
 
 export async function GET(request: NextRequest) {
   try {
@@ -26,7 +64,7 @@ export async function GET(request: NextRequest) {
     const endDateTime = new Date(endDate);
 
     // Fetch manual workouts
-    const workouts: Workout[] = await prisma.workout.findMany({
+  const workouts = await prisma.workout.findMany({
       where: {
         userId: session.user.id,
         date: {
@@ -38,9 +76,7 @@ export async function GET(request: NextRequest) {
     });
 
     // Fetch running plan runs for the date range
-    const runningPlanRuns: (RunningPlanRun & {
-      runningPlan: Pick<RunningPlan, "id" | "name" | "goal" | "durationWeeks">;
-    })[] = await prisma.runningPlanRun.findMany({
+    const runningPlanRuns = await prisma.runningPlanRun.findMany({
       where: {
         runningPlan: {
           userId: session.user.id,
@@ -64,7 +100,7 @@ export async function GET(request: NextRequest) {
     });
 
     // Format workouts
-    const formattedWorkouts = workouts.map((w) => ({
+  const formattedWorkouts = workouts.map((w: DashboardWorkout) => ({
       id: w.id,
       type: "workout" as const,
       title: w.title,
@@ -81,7 +117,7 @@ export async function GET(request: NextRequest) {
     }));
 
     // Format running plan runs
-    const formattedPlanRuns = runningPlanRuns.map((r) => {
+  const formattedPlanRuns = runningPlanRuns.map((r: DashboardPlanRun) => {
       // Use the stored date/time, or default to 20:00 if only date is set
       const startTime = r.date;
       const duration = r.durationMinutes || 60; // Default to 60 minutes
