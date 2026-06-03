@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { prisma } from "@/app/lib/prisma";
+import type { Workout, RunningPlanRun, RunningPlan } from "@prisma/client";
 
 export async function GET(request: NextRequest) {
   try {
@@ -25,7 +26,7 @@ export async function GET(request: NextRequest) {
     const endDateTime = new Date(endDate);
 
     // Fetch manual workouts
-    const workouts = await prisma.workout.findMany({
+    const workouts: Workout[] = await prisma.workout.findMany({
       where: {
         userId: session.user.id,
         date: {
@@ -37,7 +38,9 @@ export async function GET(request: NextRequest) {
     });
 
     // Fetch running plan runs for the date range
-    const runningPlanRuns = await prisma.runningPlanRun.findMany({
+    const runningPlanRuns: (RunningPlanRun & {
+      runningPlan: Pick<RunningPlan, "id" | "name" | "goal" | "durationWeeks">;
+    })[] = await prisma.runningPlanRun.findMany({
       where: {
         runningPlan: {
           userId: session.user.id,
