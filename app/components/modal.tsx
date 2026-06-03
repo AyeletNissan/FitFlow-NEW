@@ -30,7 +30,7 @@ export default function Modal({ isOpen, onClose, title, children }: ModalProps) 
         onClick={onClose}
       />
       <div
-        className="relative z-10 w-full max-w-lg rounded-2xl border-2"
+        className="relative z-10 w-full max-w-full sm:max-w-lg rounded-2xl border-2"
         style={{
           borderColor: "var(--theme-border)",
           backgroundColor: "var(--theme-bg-card)",
@@ -38,7 +38,7 @@ export default function Modal({ isOpen, onClose, title, children }: ModalProps) 
         }}
       >
         <div
-          className="flex items-center justify-between border-b-2 p-5"
+          className="flex items-center justify-between border-b-2 p-4 sm:p-5"
           style={{ borderColor: "var(--theme-border-light)" }}
         >
           <h2 className="text-lg font-bold" style={{ color: "var(--theme-text)" }}>
@@ -70,7 +70,7 @@ export default function Modal({ isOpen, onClose, title, children }: ModalProps) 
             </svg>
           </button>
         </div>
-        <div className="p-5">{children}</div>
+        <div className="p-4 sm:p-5">{children}</div>
       </div>
     </div>
   );

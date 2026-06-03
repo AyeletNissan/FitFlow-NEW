@@ -19,7 +19,7 @@ export default function DayCard({ date, items, onAddWorkout, onEditWorkout, onDe
 
   return (
     <div
-      className="rounded-2xl border-2 p-5 shadow-md transition-all"
+      className="rounded-2xl border-2 p-4 sm:p-5 shadow-md transition-all w-full"
       style={{
         borderColor: today ? "var(--theme-border-strong)" : "var(--theme-border-light)",
         backgroundColor: today ? "var(--theme-bg-card-alt)" : "var(--theme-bg-card)",
@@ -81,7 +81,7 @@ export default function DayCard({ date, items, onAddWorkout, onEditWorkout, onDe
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <div className="flex items-center gap-1.5">
-                      <div className="font-semibold" style={{ color: "var(--theme-text)" }}>
+                      <div className="font-semibold break-words text-sm sm:text-base" style={{ color: "var(--theme-text)" }}>
                         {item.title}
                       </div>
                       {item.type === "planRun" && (
@@ -99,7 +99,7 @@ export default function DayCard({ date, items, onAddWorkout, onEditWorkout, onDe
                         </span>
                       )}
                     </div>
-                    <div className="mt-1" style={{ color: "var(--theme-text-muted)" }}>
+                    <div className="mt-1 text-sm" style={{ color: "var(--theme-text-muted)" }}>
                       {item.workoutType}
                     </div>
                     {item.type === "planRun" ? (
@@ -126,11 +126,11 @@ export default function DayCard({ date, items, onAddWorkout, onEditWorkout, onDe
                       </>
                     )}
                   </div>
-                  <div className="ml-2 flex gap-1.5 opacity-0 group-hover:opacity-100">
+                  <div className="ml-2 flex gap-1.5 flex-wrap opacity-0 group-hover:opacity-100">
                     {!item.googleEventId && item.type === "workout" && (
                       <button
                         onClick={() => onAddToCalendar(item)}
-                        className="rounded-lg p-1.5 transition-all"
+                        className="rounded-lg px-2 py-1 transition-all text-xs sm:text-sm w-full sm:w-auto"
                         style={{
                           color: "var(--theme-primary)",
                           backgroundColor: hoveredButton === `cal-${item.id}` ? "var(--theme-bg-hover)" : "transparent",
@@ -146,7 +146,7 @@ export default function DayCard({ date, items, onAddWorkout, onEditWorkout, onDe
                     )}
                     <button
                       onClick={() => onEditWorkout(item)}
-                      className="rounded-lg p-1.5 transition-all"
+                      className="rounded-lg px-2 py-1 transition-all text-xs sm:text-sm w-full sm:w-auto"
                       style={{
                         color: "var(--theme-primary)",
                         backgroundColor: hoveredButton === `edit-${item.id}` ? "var(--theme-bg-hover)" : "transparent",
@@ -161,7 +161,7 @@ export default function DayCard({ date, items, onAddWorkout, onEditWorkout, onDe
                     </button>
                     <button
                       onClick={() => onDeleteWorkout(item)}
-                      className="rounded-lg p-1.5 text-red-500 transition-all hover:bg-red-50 hover:shadow-sm dark:text-red-400 dark:hover:bg-red-900/20"
+                      className="rounded-lg px-2 py-1 text-red-500 transition-all hover:bg-red-50 hover:shadow-sm dark:text-red-400 dark:hover:bg-red-900/20 w-full sm:w-auto"
                       title={item.type === "planRun" ? "Delete plan run" : "Delete workout"}
                     >
                       <svg className="h-3.5 w-3.5" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">

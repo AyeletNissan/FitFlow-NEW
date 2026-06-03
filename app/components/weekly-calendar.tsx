@@ -586,8 +586,8 @@ export default function WeeklyCalendar() {
           boxShadow: `0 10px 15px -3px var(--theme-shadow-strong), 0 4px 6px -4px var(--theme-shadow-strong)`
         }}
       >
-        <div className="mb-6 flex items-center justify-between">
-          <div className="flex items-center gap-4">
+        <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div className="flex items-center gap-3 flex-wrap">
             <button
               onClick={handlePreviousWeek}
               className="rounded-xl border-2 p-2.5 shadow-sm transition-all"
@@ -650,11 +650,11 @@ export default function WeeklyCalendar() {
               {getWeekRangeText()}
             </h2>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
             <button
               onClick={handleSyncToCalendar}
               disabled={syncingTo}
-              className="flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold text-white shadow-md transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold text-white shadow-md transition-all disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto"
               style={{
                 backgroundColor: hoveredElement === 'syncTo' && !syncingTo ? "var(--theme-primary-hover)" : "var(--theme-primary)",
                 boxShadow: hoveredElement === 'syncTo' && !syncingTo
@@ -673,7 +673,7 @@ export default function WeeklyCalendar() {
             <button
               onClick={handleSyncFromCalendar}
               disabled={syncing}
-              className="flex items-center gap-2 rounded-xl border-2 px-4 py-2.5 text-sm font-semibold shadow-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex items-center gap-2 rounded-xl border-2 px-4 py-2.5 text-sm font-semibold shadow-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto"
               style={{
                 backgroundColor: hoveredElement === 'syncFrom' && !syncing ? "var(--theme-bg-hover)" : "var(--theme-bg-card)",
                 borderColor: "var(--theme-border-light)",
@@ -694,7 +694,7 @@ export default function WeeklyCalendar() {
             <button
               onClick={() => setShowUnsyncConfirm(true)}
               disabled={unsyncing}
-              className="flex items-center gap-2 rounded-xl border-2 border-red-300 bg-white px-4 py-2.5 text-sm font-semibold text-red-600 shadow-sm shadow-red-300/20 transition-all hover:bg-red-50 hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed dark:border-red-700 dark:bg-zinc-900 dark:text-red-400 dark:hover:bg-red-900/30"
+              className="flex items-center gap-2 rounded-xl border-2 border-red-300 bg-white px-4 py-2.5 text-sm font-semibold text-red-600 shadow-sm shadow-red-300/20 transition-all hover:bg-red-50 hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed dark:border-red-700 dark:bg-zinc-900 dark:text-red-400 dark:hover:bg-red-900/30 w-full sm:w-auto"
               title="Remove synced items from Google Calendar"
             >
               <svg className="h-4 w-4" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
