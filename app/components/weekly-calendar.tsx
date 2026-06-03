@@ -487,9 +487,9 @@ export default function WeeklyCalendar() {
   return (
     <>
       {/* Stats Cards */}
-      <div className="mb-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+  <div className="mb-6 grid grid-cols-2 gap-2 sm:grid-cols-2 lg:grid-cols-4">
         <div
-          className="rounded-2xl border-2 p-4 sm:p-6 shadow-md"
+          className="rounded-lg sm:rounded-2xl border-2 p-3 sm:p-4 md:p-6 shadow-md"
           style={{
             backgroundColor: "var(--theme-bg-card)",
             borderColor: "var(--theme-border)",
@@ -497,13 +497,13 @@ export default function WeeklyCalendar() {
           }}
         >
           <div
-            className="text-sm font-semibold"
+            className="text-xs sm:text-sm font-semibold"
             style={{ color: "var(--theme-primary)" }}
           >
             Weekly Distance
           </div>
           <div
-            className="mt-3 text-2xl sm:text-3xl font-bold"
+            className="mt-2 text-xl sm:text-2xl md:text-3xl font-bold"
             style={{ color: "var(--theme-text)" }}
           >
             {stats.weeklyDistance}
@@ -511,7 +511,7 @@ export default function WeeklyCalendar() {
         </div>
 
         <div
-          className="rounded-2xl border-2 p-4 sm:p-6 shadow-md"
+          className="rounded-lg sm:rounded-2xl border-2 p-3 sm:p-4 md:p-6 shadow-md"
           style={{
             backgroundColor: "var(--theme-bg-card)",
             borderColor: "var(--theme-border)",
@@ -519,13 +519,13 @@ export default function WeeklyCalendar() {
           }}
         >
           <div
-            className="text-sm font-semibold"
+            className="text-xs sm:text-sm font-semibold"
             style={{ color: "var(--theme-primary)" }}
           >
             Workouts This Week
           </div>
           <div
-            className="mt-3 text-2xl sm:text-3xl font-bold"
+            className="mt-2 text-xl sm:text-2xl md:text-3xl font-bold"
             style={{ color: "var(--theme-text)" }}
           >
             {stats.weeklyWorkouts}
@@ -533,7 +533,7 @@ export default function WeeklyCalendar() {
         </div>
 
         <div
-          className="rounded-2xl border-2 p-4 sm:p-6 shadow-md"
+          className="rounded-lg sm:rounded-2xl border-2 p-3 sm:p-4 md:p-6 shadow-md"
           style={{
             backgroundColor: "var(--theme-bg-card)",
             borderColor: "var(--theme-border)",
@@ -541,13 +541,13 @@ export default function WeeklyCalendar() {
           }}
         >
           <div
-            className="text-sm font-semibold"
+            className="text-xs sm:text-sm font-semibold"
             style={{ color: "var(--theme-primary)" }}
           >
             Avg Pace
           </div>
           <div
-            className="mt-3 text-2xl sm:text-3xl font-bold"
+            className="mt-2 text-xl sm:text-2xl md:text-3xl font-bold"
             style={{ color: "var(--theme-text-muted)" }}
           >
             {stats.avgPace}
@@ -555,7 +555,7 @@ export default function WeeklyCalendar() {
         </div>
 
         <div
-          className="rounded-2xl border-2 p-4 sm:p-6 shadow-md"
+          className="rounded-lg sm:rounded-2xl border-2 p-3 sm:p-4 md:p-6 shadow-md"
           style={{
             backgroundColor: "var(--theme-bg-card)",
             borderColor: "var(--theme-border)",
@@ -563,13 +563,13 @@ export default function WeeklyCalendar() {
           }}
         >
           <div
-            className="text-sm font-semibold"
+            className="text-xs sm:text-sm font-semibold"
             style={{ color: "var(--theme-primary)" }}
           >
             Day Streak
           </div>
           <div
-            className="mt-3 text-2xl sm:text-3xl font-bold"
+            className="mt-2 text-xl sm:text-2xl md:text-3xl font-bold"
             style={{ color: "var(--theme-text-muted)" }}
           >
             {stats.streak}

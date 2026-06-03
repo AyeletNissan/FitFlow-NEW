@@ -80,13 +80,13 @@ export default function DayCard({ date, items, onAddWorkout, onEditWorkout, onDe
               <div>
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
-                    <div className="flex items-center gap-1.5">
-                      <div className="font-semibold break-words text-sm sm:text-base" style={{ color: "var(--theme-text)" }}>
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-1.5">
+                      <div className="font-semibold break-words text-sm sm:text-base min-w-0 whitespace-normal" style={{ color: "var(--theme-text)" }}>
                         {item.title}
                       </div>
                       {item.type === "planRun" && (
                         <span
-                          className="rounded-full px-2 py-0.5 text-[10px] font-bold text-white shadow-sm"
+                          className="rounded-full px-2 py-0.5 text-[10px] font-bold text-white shadow-sm mt-1 sm:mt-0 sm:ml-2"
                           style={{ backgroundColor: "var(--theme-primary)" }}
                           title={`From ${item.runningPlanName}`}
                         >
