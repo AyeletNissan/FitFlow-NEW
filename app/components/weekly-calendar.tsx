@@ -489,7 +489,7 @@ export default function WeeklyCalendar() {
       {/* Stats Cards */}
       <div className="mb-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
         <div
-          className="rounded-2xl border-2 p-6 shadow-md"
+          className="rounded-2xl border-2 p-4 sm:p-6 shadow-md"
           style={{
             backgroundColor: "var(--theme-bg-card)",
             borderColor: "var(--theme-border)",
@@ -503,7 +503,7 @@ export default function WeeklyCalendar() {
             Weekly Distance
           </div>
           <div
-            className="mt-3 text-3xl font-bold"
+            className="mt-3 text-2xl sm:text-3xl font-bold"
             style={{ color: "var(--theme-text)" }}
           >
             {stats.weeklyDistance}
@@ -511,7 +511,7 @@ export default function WeeklyCalendar() {
         </div>
 
         <div
-          className="rounded-2xl border-2 p-6 shadow-md"
+          className="rounded-2xl border-2 p-4 sm:p-6 shadow-md"
           style={{
             backgroundColor: "var(--theme-bg-card)",
             borderColor: "var(--theme-border)",
@@ -525,7 +525,7 @@ export default function WeeklyCalendar() {
             Workouts This Week
           </div>
           <div
-            className="mt-3 text-3xl font-bold"
+            className="mt-3 text-2xl sm:text-3xl font-bold"
             style={{ color: "var(--theme-text)" }}
           >
             {stats.weeklyWorkouts}
@@ -533,7 +533,7 @@ export default function WeeklyCalendar() {
         </div>
 
         <div
-          className="rounded-2xl border-2 p-6 shadow-md"
+          className="rounded-2xl border-2 p-4 sm:p-6 shadow-md"
           style={{
             backgroundColor: "var(--theme-bg-card)",
             borderColor: "var(--theme-border)",
@@ -547,7 +547,7 @@ export default function WeeklyCalendar() {
             Avg Pace
           </div>
           <div
-            className="mt-3 text-3xl font-bold"
+            className="mt-3 text-2xl sm:text-3xl font-bold"
             style={{ color: "var(--theme-text-muted)" }}
           >
             {stats.avgPace}
@@ -555,7 +555,7 @@ export default function WeeklyCalendar() {
         </div>
 
         <div
-          className="rounded-2xl border-2 p-6 shadow-md"
+          className="rounded-2xl border-2 p-4 sm:p-6 shadow-md"
           style={{
             backgroundColor: "var(--theme-bg-card)",
             borderColor: "var(--theme-border)",
@@ -569,7 +569,7 @@ export default function WeeklyCalendar() {
             Day Streak
           </div>
           <div
-            className="mt-3 text-3xl font-bold"
+            className="mt-3 text-2xl sm:text-3xl font-bold"
             style={{ color: "var(--theme-text-muted)" }}
           >
             {stats.streak}
@@ -590,7 +590,7 @@ export default function WeeklyCalendar() {
           <div className="flex items-center gap-3 flex-wrap">
             <button
               onClick={handlePreviousWeek}
-              className="rounded-xl border-2 p-2.5 shadow-sm transition-all"
+              className="rounded-xl border-2 px-2 py-1.5 shadow-sm transition-all"
               style={{
                 backgroundColor: hoveredElement === 'prev' ? "var(--theme-bg-hover)" : "var(--theme-bg-card)",
                 borderColor: "var(--theme-border-light)",
@@ -609,7 +609,7 @@ export default function WeeklyCalendar() {
             </button>
             <button
               onClick={handleToday}
-              className="rounded-xl border-2 px-4 py-2.5 text-sm font-semibold shadow-sm transition-all"
+              className="rounded-xl border-2 px-3 py-1.5 text-sm font-semibold shadow-sm transition-all"
               style={{
                 backgroundColor: hoveredElement === 'today' ? "var(--theme-bg-hover)" : "var(--theme-bg-card)",
                 borderColor: "var(--theme-border-light)",
@@ -626,7 +626,7 @@ export default function WeeklyCalendar() {
             </button>
             <button
               onClick={handleNextWeek}
-              className="rounded-xl border-2 p-2.5 shadow-sm transition-all"
+              className="rounded-xl border-2 px-2 py-1.5 shadow-sm transition-all"
               style={{
                 backgroundColor: hoveredElement === 'next' ? "var(--theme-bg-hover)" : "var(--theme-bg-card)",
                 borderColor: "var(--theme-border-light)",
@@ -644,7 +644,7 @@ export default function WeeklyCalendar() {
               </svg>
             </button>
             <h2
-              className="text-2xl font-bold"
+              className="text-lg sm:text-2xl font-bold"
               style={{ color: "var(--theme-text)" }}
             >
               {getWeekRangeText()}
@@ -711,7 +711,7 @@ export default function WeeklyCalendar() {
             {runningPlans.map((plan, idx) => (
               <div
                 key={idx}
-                className="rounded-xl border-2 px-4 py-2.5 shadow-sm"
+                className="rounded-xl border-2 px-2 py-1.5 sm:px-4 sm:py-2.5 shadow-sm"
                 style={{
                   backgroundColor: "var(--theme-bg-card-alt)",
                   borderColor: "var(--theme-border)",
@@ -729,7 +729,7 @@ export default function WeeklyCalendar() {
           </div>
         )}
 
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-7">
+  <div className="grid grid-cols-2 gap-3 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-7">
           {weekDates.map((date) => {
             const dayItems = getItemsForDate(date);
             return (

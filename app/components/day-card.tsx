@@ -59,7 +59,7 @@ export default function DayCard({ date, items, onAddWorkout, onEditWorkout, onDe
 
       <div className="space-y-2.5">
         {items.length === 0 ? (
-          <div className="py-6 text-center text-xs font-medium" style={{ color: "var(--theme-text-muted)" }}>
+          <div className="py-4 text-center text-xs font-medium" style={{ color: "var(--theme-text-muted)" }}>
             No workouts
           </div>
         ) : (
@@ -178,7 +178,7 @@ export default function DayCard({ date, items, onAddWorkout, onEditWorkout, onDe
 
       <button
         onClick={() => onAddWorkout(date)}
-        className="mt-3 w-full rounded-xl border-2 border-dashed py-2.5 text-xs font-semibold transition-all"
+        className="mt-2 w-full rounded-xl border-2 border-dashed py-2 text-xs font-semibold transition-all"
         style={{
           borderColor: hoveredButton === `add-${date.toISOString()}` ? "var(--theme-border)" : "var(--theme-border-light)",
           color: "var(--theme-primary)",
