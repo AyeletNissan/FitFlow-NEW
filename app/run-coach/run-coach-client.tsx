@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import RunCoachForm from "../components/run-coach-form";
 import ConfirmDialog from "../components/confirm-dialog";
+import Modal from "../components/modal";
 import { RunningPlan, SavedRunningPlan } from "../lib/running-plan-types";
 
 export default function RunCoachClient() {
@@ -16,6 +17,10 @@ export default function RunCoachClient() {
   const [isUpdatingPlan, setIsUpdatingPlan] = useState(false);
   const [updateSuccess, setUpdateSuccess] = useState<string | null>(null);
   const [planToDelete, setPlanToDelete] = useState<SavedRunningPlan | null>(null);
+  const [rescheduleModalPlan, setRescheduleModalPlan] = useState<SavedRunningPlan | null>(null);
+  const [rescheduleNewDate, setRescheduleNewDate] = useState("");
+  const [isRescheduling, setIsRescheduling] = useState(false);
+  const [rescheduleMessage, setRescheduleMessage] = useState<string | null>(null);
 
   useEffect(() => {
     fetchSavedPlans();
@@ -33,6 +38,81 @@ export default function RunCoachClient() {
       console.error("Error fetching saved plans:", err);
     } finally {
       setLoadingSavedPlans(false);
+    }
+  };
+
+  const openRescheduleModal = (savedPlan: SavedRunningPlan) => {
+    setRescheduleModalPlan(savedPlan);
+    // default to current start date in YYYY-MM-DD
+    try {
+      setRescheduleNewDate(savedPlan.startDate.toISOString().split("T")[0]);
+    } catch (e) {
+      setRescheduleNewDate("");
+    }
+    setRescheduleMessage(null);
+  };
+
+  const closeRescheduleModal = () => {
+    setRescheduleModalPlan(null);
+    setRescheduleNewDate("");
+    setIsRescheduling(false);
+    setRescheduleMessage(null);
+  };
+
+  const handleRescheduleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!rescheduleModalPlan) return;
+
+    if (!rescheduleNewDate) {
+      setRescheduleMessage("Please choose a new start date.");
+      return;
+    }
+
+    try {
+      setIsRescheduling(true);
+      setRescheduleMessage(null);
+
+      const response = await fetch(`/api/running-plans/${rescheduleModalPlan.id}/reschedule`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ newStartDate: rescheduleNewDate }),
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to reschedule plan");
+      }
+
+      // Refresh plans
+      await fetchSavedPlans();
+
+      // If currently viewing this plan, refresh the viewed plan
+      if (viewingPlanId === rescheduleModalPlan.id) {
+        const plansResponse = await fetch("/api/running-plans");
+        if (plansResponse.ok) {
+          const freshPlans: SavedRunningPlan[] = await plansResponse.json();
+          const freshPlan = freshPlans.find((p) => p.id === rescheduleModalPlan.id);
+          if (freshPlan) {
+            handleViewSavedPlan(freshPlan);
+          }
+        }
+      }
+
+      // Show user-facing message
+      let msg = `Plan rescheduled. ${data.runsModified ?? 0} run(s) updated.`;
+      if (data.clearedGoogleEventCount > 0 || data.hadSyncedRuns) {
+        msg += " Some runs were previously synced to Google Calendar and were unlinked here. Use 'Sync to Calendar' on the Dashboard to re-sync them.";
+      }
+      setRescheduleMessage(msg);
+
+      // Close modal after short delay
+      setTimeout(() => {
+        closeRescheduleModal();
+      }, 1200);
+    } catch (err) {
+      setRescheduleMessage(err instanceof Error ? err.message : "Failed to reschedule plan");
+    } finally {
+      setIsRescheduling(false);
     }
   };
 
@@ -341,24 +421,31 @@ export default function RunCoachClient() {
                       {new Date(savedPlan.createdAt).toLocaleDateString()}
                     </p>
                   </div>
-                  <div className="ml-4 flex gap-2">
-                    <button
-                      onClick={() => handleViewSavedPlan(savedPlan)}
-                      className="rounded-xl px-4 py-2.5 text-sm font-semibold text-white transition-all hover:[background-color:var(--theme-primary-hover)] hover:shadow-lg"
-                      style={{
-                        backgroundColor: "var(--theme-primary)",
-                        boxShadow: "0 4px 6px -1px var(--theme-shadow-strong)",
-                      }}
-                    >
-                      View Plan
-                    </button>
-                    <button
-                      onClick={() => setPlanToDelete(savedPlan)}
-                      className="rounded-xl border-2 border-red-300 bg-white px-4 py-2.5 text-sm font-semibold text-red-600 shadow-sm shadow-red-300/20 transition-all hover:bg-red-50 hover:shadow-md dark:border-red-700 dark:bg-zinc-900 dark:text-red-400 dark:hover:bg-red-900/20"
-                    >
-                      Delete Plan
-                    </button>
-                  </div>
+                    <div className="ml-4 flex gap-2">
+                      <button
+                        onClick={() => handleViewSavedPlan(savedPlan)}
+                        className="rounded-xl px-4 py-2.5 text-sm font-semibold text-white transition-all hover:[background-color:var(--theme-primary-hover)] hover:shadow-lg"
+                        style={{
+                          backgroundColor: "var(--theme-primary)",
+                          boxShadow: "0 4px 6px -1px var(--theme-shadow-strong)",
+                        }}
+                      >
+                        View Plan
+                      </button>
+                      <button
+                        onClick={() => openRescheduleModal(savedPlan)}
+                        className="rounded-xl border-2 px-4 py-2.5 text-sm font-semibold transition-all hover:bg-zinc-50"
+                        style={{ borderColor: "var(--theme-border-light)" }}
+                      >
+                        Change Dates
+                      </button>
+                      <button
+                        onClick={() => setPlanToDelete(savedPlan)}
+                        className="rounded-xl border-2 border-red-300 bg-white px-4 py-2.5 text-sm font-semibold text-red-600 shadow-sm shadow-red-300/20 transition-all hover:bg-red-50 hover:shadow-md dark:border-red-700 dark:bg-zinc-900 dark:text-red-400 dark:hover:bg-red-900/20"
+                      >
+                        Delete Plan
+                      </button>
+                    </div>
                 </div>
               ))}
             </div>
@@ -433,6 +520,18 @@ export default function RunCoachClient() {
                     {plan.preferredRunningDays.join(", ")}
                   </span>
                 </div>
+              </div>
+              <div className="mt-3 flex items-center justify-end gap-2">
+                <button
+                  onClick={() => {
+                    const planMatch = savedPlans.find((p) => p.id === viewingPlanId);
+                    if (planMatch) openRescheduleModal(planMatch);
+                  }}
+                  className="rounded-xl border-2 px-4 py-2 text-sm font-semibold transition-all hover:bg-zinc-50"
+                  style={{ borderColor: "var(--theme-border-light)" }}
+                >
+                  Change Dates
+                </button>
               </div>
             </div>
 
