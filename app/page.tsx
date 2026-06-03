@@ -41,7 +41,7 @@ export default function Home() {
                 e.currentTarget.style.boxShadow = "0 4px 6px -1px var(--theme-shadow-strong)";
               }}
             >
-              Get Started
+              Dashboard - Weekly Planner
             </Link>
             <Link
               href="/run-coach"
@@ -61,7 +61,7 @@ export default function Home() {
                 e.currentTarget.style.boxShadow = "0 1px 2px var(--theme-shadow)";
               }}
             >
-              Try Run Coach
+              Run Coach
             </Link>
           </div>
 

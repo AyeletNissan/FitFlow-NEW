@@ -433,6 +433,7 @@ export default function RunCoachClient() {
                         View Plan
                       </button>
                       <button
+                        type="button"
                         onClick={() => openRescheduleModal(savedPlan)}
                         className="rounded-xl border-2 px-4 py-2.5 text-sm font-semibold transition-all hover:bg-zinc-50"
                         style={{ borderColor: "var(--theme-border-light)" }}
@@ -523,6 +524,7 @@ export default function RunCoachClient() {
               </div>
               <div className="mt-3 flex items-center justify-end gap-2">
                 <button
+                  type="button"
                   onClick={() => {
                     const planMatch = savedPlans.find((p) => p.id === viewingPlanId);
                     if (planMatch) openRescheduleModal(planMatch);
@@ -728,6 +730,54 @@ export default function RunCoachClient() {
         confirmText="Delete Plan"
         cancelText="Cancel"
       />
+
+      {/* Reschedule Modal */}
+      <Modal
+        isOpen={!!rescheduleModalPlan}
+        onClose={closeRescheduleModal}
+        title={rescheduleModalPlan ? `Change Dates — ${rescheduleModalPlan.name}` : "Change Dates"}
+      >
+        {rescheduleModalPlan && (
+          <form onSubmit={handleRescheduleSubmit} className="space-y-3">
+            <div>
+              <label className="block text-sm font-medium" style={{ color: "var(--theme-text)" }}>
+                Current Start Date
+              </label>
+              <div className="mt-1 text-sm" style={{ color: "var(--theme-text-muted)" }}>
+                {new Date(rescheduleModalPlan.startDate).toLocaleDateString()}
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium" style={{ color: "var(--theme-text)" }}>
+                New Start Date
+              </label>
+              <input
+                type="date"
+                value={rescheduleNewDate}
+                onChange={(e) => setRescheduleNewDate(e.target.value)}
+                className="mt-1 w-full rounded-xl border-2 px-3 py-2 text-sm"
+                style={{ borderColor: "var(--theme-border-light)", backgroundColor: "var(--theme-bg-card)", color: "var(--theme-text)" }}
+              />
+            </div>
+
+            {rescheduleMessage && (
+              <div className="rounded-md bg-zinc-50 p-2 text-sm" style={{ color: "var(--theme-text)" }}>
+                {rescheduleMessage}
+              </div>
+            )}
+
+            <div className="flex items-center justify-end gap-3">
+              <button type="button" onClick={closeRescheduleModal} className="rounded-xl px-4 py-2 text-sm font-semibold border-2" style={{ borderColor: "var(--theme-border-light)" }}>
+                Cancel
+              </button>
+              <button type="submit" disabled={isRescheduling} className="rounded-xl px-4 py-2 text-sm font-semibold text-white" style={{ backgroundColor: "var(--theme-primary)" }}>
+                {isRescheduling ? "Rescheduling..." : "Save / Reschedule"}
+              </button>
+            </div>
+          </form>
+        )}
+      </Modal>
     </div>
   );
 }
