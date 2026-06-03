@@ -78,7 +78,7 @@ export default function DayCard({ date, items, onAddWorkout, onEditWorkout, onDe
               onMouseLeave={(e) => e.currentTarget.style.boxShadow = "0 1px 2px var(--theme-shadow)"}
             >
               <div>
-                <div className="flex items-start justify-between">
+                <div className="flex flex-col sm:flex-row items-start justify-between">
                   <div className="flex-1">
                     <div className="flex flex-col sm:flex-row sm:items-center gap-1.5">
                       <div className="font-semibold break-words text-sm sm:text-base min-w-0 whitespace-normal" style={{ color: "var(--theme-text)" }}>
@@ -126,7 +126,7 @@ export default function DayCard({ date, items, onAddWorkout, onEditWorkout, onDe
                       </>
                     )}
                   </div>
-                  <div className="ml-2 flex gap-1.5 flex-wrap opacity-0 group-hover:opacity-100">
+                  <div className="mt-3 sm:ml-2 sm:mt-0 ml-2 flex gap-1.5 flex-wrap opacity-100 sm:opacity-0 sm:group-hover:opacity-100">
                     {!item.googleEventId && item.type === "workout" && (
                       <button
                         onClick={() => onAddToCalendar(item)}
